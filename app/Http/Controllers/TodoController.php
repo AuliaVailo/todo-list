@@ -21,6 +21,15 @@ class TodoController extends Controller
     }
 
     public function addTodo(Request $request) {
+        $rules = [
+            'todo' => 'required'
+        ];
+
+        $message = [
+            'todo.required' => 'Isian Todo tidak boleh kosong.'
+        ];
+        $this->validate($request, $rules, $message);
+
         $todo = new Todo();
         $todo->todo = $request->todo;
         $todo->save();

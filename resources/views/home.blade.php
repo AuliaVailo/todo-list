@@ -17,8 +17,11 @@
                     @csrf
                     <div class="mb-2">Todo</div>
                     <div>
-                        <input type="text" name="todo" id="todo" value="{{ $todo->todo ?? '' }}" placeholder="Create simple web app..." class="bg-gray-200 w-full p-3 rounded-lg" required>
+                        <input type="text" name="todo" id="todo" value="{{ $todo->todo ?? '' }}" placeholder="Create simple web app..." class="bg-gray-200 w-full p-3 rounded-lg">
                     </div>
+                    @error('todo')
+                        <div class="text-red-500 my-2">{{ $message }}</div>
+                    @enderror
                 </form>
             </div>
             <div class="p-3">

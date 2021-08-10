@@ -32,7 +32,7 @@
                             <a href="{{ route('edit', ['id' => $item->id]) }}" class="bg-blue-500 p-2 text-white rounded-lg m-2">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                             </a>
-                            <a href="{{ route('delete', ['id' => $item->id]) }}" class="bg-red-500 p-2 text-white rounded-lg m-2">
+                            <a href="#" class="bg-red-500 p-2 text-white rounded-lg m-2" onclick="deleteConfirmation('{{ route('delete', ['id' => $item->id]) }}')">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                             </a>
                         </div>
@@ -42,5 +42,31 @@
         </div>
     </div>
     <script src="{{ asset('js/app.js')}}"></script>
+    <script>
+
+        @if(Session::get('success'))
+            Swal.fire(
+            'Success!',
+            '{{ Session::get('success') }}',
+            'success'
+            )
+        @endif
+
+        function deleteConfirmation(url) {
+            Swal.fire({
+            title: 'Do you want to save the changes?',
+            showCancelButton: true,
+            confirmButtonText: `Ya, Hapus`,
+            denyButtonText: `Tidak jadi`,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                location.href = url
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+            })
+        }
+    </script>
 </body>
 </html>

@@ -40,7 +40,7 @@ class TodoController extends Controller
         $todo = Todo::findOrFail($id);
         $todo->delete();
 
-        return redirect(route('home'));
+        return redirect(route('home'))->with('success', 'Data berhasil dihapus!');
     }
 
 
